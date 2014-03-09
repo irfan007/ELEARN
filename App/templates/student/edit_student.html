@@ -1,0 +1,162 @@
+
+{%extends "dashboard.html"%}
+{%load staticfiles%}
+
+
+{%block navigation%}
+		<div class="nav">
+		<div class="table">
+		
+		<ul class="select"><li><a ><b>COURSE</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub">
+			<ul class="sub">
+			    <li ><a href="{{URL_PREFIX}}/chapter_and_topics/">CHAPTERS & TOPICS</a></li>
+				<li><a href="{{URL_PREFIX}}/qa/">QA</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="current"><li><a href="#nogo"><b>STUDENTS</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub show">
+			<ul class="sub">
+				<li class="sub_show"><a href="{{URL_PREFIX}}/student/">STUDENTS</a></li>
+				<li><a href="{{URL_PREFIX}}/progress/">PROGRESS</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<ul class="select"><li><a href=""><b>DEVICES</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="{{URL_PREFIX}}/device/">DEVICES</a></li>
+				
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
+		
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<!--  start nav -->
+
+{%endblock%}
+		
+{%block content_header%}
+	<div id="page-heading">
+	    <table border="0" width="97%">
+	    	<tr>
+	    	<td><b style="font-size:25px;font-weight:bold;">&nbsp;&nbsp;&nbsp;Edit Student</b></td>
+	    	<td align="right"><a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/student/"> Back </a</td>
+	    	</tr>
+	    </table>
+	</div>
+{%endblock%}
+
+
+{%block main_content%}
+	<form id="mainform" action="" method="post">
+	<table border="0" width="80%" cellpadding="0" cellspacing="0" >
+					<tr valign="top">
+					<td>
+					
+					
+						
+					
+						<!-- start id-form -->
+						<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
+						
+						<tr>
+							<th valign="top">Student Username:</th>
+							<td><input type="text" class="inp-form" name="student_username" value="{{student_username}}"/></td>
+						</tr>
+						<tr>
+							<th valign="top">Student Password:</th>
+							<td><input type="text" class="inp-form" name="student_password" value="{{student_password}}"/></td>
+						</tr>
+						
+						<tr>
+							<th valign="top">Student First Name:</th>
+							<td><input type="text" class="inp-form" name="student_fname" value="{{student_fname}}"/></td>
+						</tr>
+						
+						<tr>
+							<th valign="top">Student Last Name:</th>
+							<td><input type="text" class="inp-form" name="student_lname" value="{{student_lname}}"/></td>
+						</tr>
+						
+						<tr>
+							<th valign="top">Student Contact No.:</th>
+							<td><input type="text" class="inp-form" name="student_contact" value="{{student_contact}}"/></td>
+						</tr>
+						
+						<tr>
+							<th valign="top">Student Email ID:</th>
+							<td><input type="text" class="inp-form" name="student_email" value="{{student_email}}"/></td>
+						</tr>
+						
+						<tr>
+						<th valign="top">Status:</th>
+						<td>	
+						<select  class="styledselect_form_1" name="student_status">
+							{% if student_status == 1%}
+							<option value="1" selected>Active</option>
+							{%else%}
+							<option value="1" >Active</option>
+							{%endif%}
+							
+							
+							{%if student_status == 0%}
+							<option value="0" selected>In-active</option>
+							{%else%}
+							<option value="0">In-active</option>
+							{%endif%}
+						</select>
+						</td>
+						</tr> 
+						
+						
+						
+						
+										
+					<tr>
+						<th>&nbsp;</th>
+						<td valign="top">
+							<input type="submit" value="" class="form-submit" />
+							<input type="reset" value="" class="form-reset"  />
+						</td>
+						<td></td>
+					</tr>
+					</table>
+					<!-- end id-form  -->
+				
+					</td>
+					<td>
+				
+					
+				
+				</td>
+				</tr>
+				
+			</table>				
+	</form>
+
+
+{%endblock%}
+
+

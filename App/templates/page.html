@@ -1,0 +1,68 @@
+
+<html>
+<body>
+
+<script>
+    
+    function fetch(from,item)
+    {
+	    var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  
+		  xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+		     try
+		     {
+		     item.setAttribute('src',xmlhttp.response);
+		     //alert('set:'+item.getAttribute('src'));
+		     item.load();//required for chrome
+		     item.play();
+		     }
+		     catch(e){alert(e);}
+		    }
+		  }
+		xmlhttp.open("GET",from,true);
+		xmlhttp.send();
+	}
+	
+	
+	
+	function setup(item){
+	try{
+        if(item.getAttribute('flag')=='e'){
+		item.setAttribute('flag','d');
+		source=item.getElementsByTagName('source');
+        fetch('resolve?this='+source[0].src,item)
+        
+        //alert('decrypted!');
+		}else{
+        //alert('already decrypted!');
+        }
+
+	}catch(e)
+        {alert(e);}
+}
+</script>
+
+{%for m in medias%}
+<video width="320" height="240" controls preload="none" onplay="setup(this);"; flag="e"  oncontextmenu="return false;">
+<source src="{{m.cipher_url}}" type="video/webm">
+Your browser does not support the video tag.
+</video>
+{%endfor%}
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+
+{%extends "dashboard.html"%}
+
+{%block navigation%}
+		<div class="nav">
+		<div class="table">
+		
+		<ul class="current"><li><a ><b>COURSE</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub show">
+			<ul class="sub">
+			    <li ><a href="{{URL_PREFIX}}/chapter_and_topics/">CHAPTERS & TOPICS</a></li>
+				<li class="sub_show"><a href="{{URL_PREFIX}}/qa/">QA</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="select"><li><a href="#nogo"><b>STUDENTS</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="{{URL_PREFIX}}/student/">STUDENTS</a></li>
+				<li><a href="{{URL_PREFIX}}/progress/">PROGRESS</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<ul class="select"><li><a ><b>DEVICES</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub">
+			<ul class="sub">
+				<li ><a href="{{URL_PREFIX}}/device/">DEVICES</a></li>
+				
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
+		
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<!--  start nav -->
+{%endblock%}
+				
+{%block content_header%}
+	<div id="page-heading">
+	    <table border="0" width="97%">
+	    	<tr>
+	    	<td><b style="font-size:25px;font-weight:bold;">&nbsp;&nbsp;&nbsp;Q&A ( Chapter and Topic-wise )</b></td>
+	    	<td align="right"><a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/qa/add/"> ADD QUESTION </a>
+	    	&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/qa/upload/"> UPLOAD QUESTIONS </a>
+	    	</td>
+	    	
+	    	</tr>
+	    </table>
+	</div>
+{%endblock%}
+
+{% block main_content %}
+				<form id="mainform" action="">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<tr>
+				    <th class="table-header-repeat line-left"></th>
+				    <th class="table-header-repeat line-left minwidth-1"><a href="">chapter</a></th>
+				    <th class="table-header-repeat line-left minwidth-1">
+				    <table width="100%" border="0">
+				    	<tr style="color:white">
+				    		<th width="61%"><a>Topic Name</a></td>
+				    		<th width="19%"><a>Edit</a> </td>
+				    		<th><a>No. Of Questions</a></td>
+				    	</tr>
+				    </table>
+				    </th>
+				</tr>
+				
+				{% for chapter in chapters %}
+				<tr>
+			        <td style="color:#527A00;text-align:center">{{forloop.counter}}</td>
+			        <td valign="">{{chapter.name}}</td>
+					<td colspan="2" >
+					<table border="" width="100%">
+					
+					{%for t in chapter.topics.all%}
+					    <tr>
+					    	<td>
+					    	{{t.name|upper}}
+					    	</td>
+					    	<td align="right" width="20%"> <a  title="edit questions belong to this topic" class="icon-1 info-tooltip" href="{{URL_PREFIX}}/qa/edit/{{t.id}}"></a></td>
+					    	<td>{{t.questions.count}}</td>
+					    	
+					    </tr>
+					{%empty%}
+						<tr>
+					    	<td colspan="2">
+					    	NOT FOUND !
+					    	</td>
+					    	
+					    </tr>
+					{%endfor%}
+					</table>
+					</td>
+					
+					
+				</tr>
+				{%empty%}
+				   <td style="background:lightyellow;" colspan="6" align="center">NOT FOUND</td>
+				{%endfor%}
+				 
+				
+				
+				</table>
+				<!--  end product-table................................... --> 
+				</form>
+{%endblock%}
+
+

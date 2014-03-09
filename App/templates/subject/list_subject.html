@@ -1,0 +1,107 @@
+
+{%extends "dashboard.html"%}
+
+{%block navigation%}
+<div class="nav">
+		<div class="table">
+		
+		<ul class="current"><li><a ><b>CONFIGURATION</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub show">
+			<ul class="sub">
+			    <li><a href="{{URL_PREFIX}}/course/">COURSES</a></li>
+				<li class="sub_show"><a href="{{URL_PREFIX}}/subject/">SUBJECTS</a></li>
+				<li><a href="{{URL_PREFIX}}/chapter/">CHAPTERS</a></li>
+				<li><a href="{{URL_PREFIX}}/topic/">TOPICS</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="select"><li><a href="#nogo"><b>STUDENTS</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="#nogo">STATUS</a></li>
+				<li class="sub_show"><a href="#nogo">PROGRESS</a></li>
+				
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
+		
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<!--  start nav -->
+{%endblock%}
+
+
+{%block content_header%}
+	<div id="page-heading">
+	    <table border="0" width="97%">
+	    	<tr>
+	    	<td><b style="font-size:25px;font-weight:bold;">&nbsp;&nbsp;&nbsp;List Of Subjects (course-wise)</b></td>
+	    	<td align="right"><a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/subject/add/"> CREATE SUBJECT </a</td>
+	    	</tr>
+	    </table>
+	</div>
+	{%endblock%}
+
+{%block main_content%}
+				<form id="mainform" action="">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<tr>
+				    <th class="table-header-repeat line-left"></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Course</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Subject</a></th>
+					
+				</tr>
+				
+				{%for course in courses%}
+				<tr>
+			        <td style="color:#527A00;text-align:center">{{forloop.counter}}</td>
+					<td valign="">{{course.name|upper}}</td>
+					<td colspan="2" >
+					<table border="" width="100%">
+					{%for s in course.subjects.all%}
+					    <tr>
+					    	<td>
+					    	{{s.name|upper}}
+					    	</td>
+					    	<td align="right"><a  title="edit this subject" class="icon-1 info-tooltip" href="{{URL_PREFIX}}/subject/edit/{{s.id}}"></a></td>
+					    </tr>
+					{%empty%}
+						<tr>
+					    	<td colspan="2">
+					    	NOT FOUND !
+					    	</td>
+					    	
+					    </tr>
+					{%endfor%}
+					</table>
+					</td>
+					
+					
+				</tr>
+				{%empty%}
+				   <td style="background:lightyellow;" colspan="5" align="center">NOT FOUND</td>
+				{%endfor%}
+				 
+				
+				
+				</table>
+				<!--  end product-table................................... --> 
+				</form>
+{%endblock%}
+
+

@@ -1,0 +1,241 @@
+
+{%extends "dashboard.html"%}
+{%load staticfiles%}
+
+{%block inside_head%}
+<link type="text/css" rel="stylesheet" href="{% static "css/jquery-te-1.4.0.css" %}">
+<script type="text/javascript" src="{% static "js/jquery/jquery-te-1.4.0.min.js" %}" charset="utf-8"></script>
+<script>
+	function new_topic()
+	{
+	  
+	  var last_topic=document.getElementById('last_topic');
+	  
+	  var last_no=parseInt(last_topic.getAttribute('has_no'));
+	  
+	  var last_id=parseInt(last_topic.getAttribute('has_id'));
+	  
+	  
+	  
+	  var table = document.getElementById("topic_table");
+	  totalRows=table.rows.length;
+	  //var row = table.insertRow(totalRows-1);
+	  var row = table.insertRow(-1);
+	  var td1 = row.insertCell(-1);
+	  var td2 = row.insertCell(-1);
+	  var td3 = row.insertCell(-1);
+	  var td4 = row.insertCell(-1);
+	  
+	  td1.innerHTML = "<input type='text' class='inp-form' name='topic_"+(last_id+1)+"_no' />";
+	  td2.innerHTML = "<input type='text' class='inp-form' name='topic_"+(last_id+1)+"_name'/>";
+	  td3.innerHTML = "<input type='file' class='file_1' name='topic_"+(last_id+1)+"_file'/>";
+	  
+	  last_topic.setAttribute('has_id',(last_id+1));
+	  last_topic.setAttribute('has_no',(last_no+1));
+	  last_topic.setAttribute('value',(last_id+1));
+	  
+	}
+</script>
+{%endblock%}
+
+{%block navigation%}
+		<div class="nav">
+		<div class="table">
+		
+		<ul class="current"><li><a ><b>COURSE</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub show">
+			<ul class="sub">
+			    <li class="sub_show"><a href="{{URL_PREFIX}}/chapter_and_topics/">CHAPTERS & TOPICS</a></li>
+				<li><a href="{{URL_PREFIX}}/qa/">QA</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="select"><li><a href="#nogo"><b>STUDENTS</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="{{URL_PREFIX}}/student/">STUDENTS</a></li>
+				<li><a href="{{URL_PREFIX}}/progress/">PROGRESS</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<ul class="select"><li><a href=""><b>DEVICES</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="{{URL_PREFIX}}/device/">DEVICES</a></li>
+				
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
+		
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<!--  start nav -->
+		
+{%endblock%}
+		
+
+{%block content_header%}
+	<div id="page-heading">
+	    <table border="0" width="97%">
+	    	<tr>
+	    	<td><b style="font-size:25px;font-weight:bold;">&nbsp;&nbsp;&nbsp;Edit Chapter and Topics</b></td>
+	    	<td align="right"><a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/chapter_and_topics/"> Back </a</td>
+	    	</tr>
+	    </table>
+	</div>
+{%endblock%}
+
+
+{%block main_content%}
+	<form id="mainform" action="" method="post" enctype="multipart/form-data">
+	           <table border="0" width="80%" cellpadding="0" cellspacing="0" >
+					<tr valign="top">
+					<td>
+					    
+					    <!-- start id-form -->
+						<table border=0" cellpadding="0" cellspacing="0"  id="id-form" width="100%">
+						
+						
+						<tr>
+							<th valign="top">Chapter No.:</th>
+							<td><input type="text" class="inp-form" name="chapter_precedence" value="{{chapter_precedence}}" /></td>
+							<td>
+							</td>
+						</tr>
+						
+						
+						<tr>
+							<th valign="top">Chapter Name:</th>
+							<td><input type="text" class="inp-form" name="chapter_name" value="{{chapter_name}}" /></td>
+							<td>
+							</td>
+						</tr>
+						
+							
+						<tr>
+							<th>Chapter Logo:</th>
+							<td><input type="file" class="file_1" name="chapter_logo"/>
+							[ 
+							{%if chapter.logo%}
+								UPLOADED
+							{%else%}
+							    NOT UPLOADED 
+							{%endif%}
+							]
+							</td>
+							
+						</tr>
+						
+						<tr>
+							<td colspan="3">
+							<table width="100%" border="0" id="topic_table">
+							    
+								<tr> 
+									<th colspan="4"  width="50"; >Topic Details:</th>
+								</tr>
+								<tr> 
+									<td colspan="3"><hr style="color:green;"></td>
+								</tr>
+								<tr> 
+									<th >Topic No.</th>
+									<th >Topic Name</th>
+									<th >Video</th>
+									<th></th>
+								</tr>
+								<!-- #######################topic rows###############-->
+								<input type="hidden" id="last_topic" name="last_topic" has_no="{{topics|length}}" has_id="{{topics|length}}" value="{{topics|length}}"/>
+								<!-- values hidden in above field contains values that are already used in forms -->
+								
+								{% for index,id,no,name,isFile in topics %}
+								
+							    {%if not forloop.last%}
+							    	<tr>
+							    	<input type="hidden" name="topic_{{index}}_id"    value="{{id}}"/> 
+									<td><input type="text" class="inp-form" name="topic_{{index}}_no"    value="{{no}}"/></td>
+									<td><input type="text" class="inp-form" name="topic_{{index}}_name"  value="{{name}}"/></td>
+									<td>
+									<input type="file" class="file_1" name="topic_{{index}}_file"/>
+									</td>
+							    	</tr>
+							    {%else%}
+							  		<tr>
+							  		<input type="hidden" name="topic_{{index}}_id"    value="{{id}}"/><!--value -1 shows a new row while editing a form-->
+							  		<td><input type="text" class="inp-form" name="topic_{{index}}_no"  value="{{no}}"/></td>
+									<td><input type="text" class="inp-form" name="topic_{{index}}_name"  value="{{name}}"/></td>
+									<td>
+									<input type="file" class="file_1" name="topic_{{index}}_file"/>
+									</td>
+									
+									<td valign="">
+									<img src="{% static 'images/icon_addlink.gif' %}" alt="" onclick="new_topic();"></img>
+									</td>
+									</tr>
+								{%endif%}
+								
+								{%endfor%}
+								
+								
+								
+								
+							</table>
+							</td>
+						</tr>	
+						
+						
+<script>
+try{
+$('.jqte-test').jqte();
+}catch(e){alert(e);}
+</script>
+						<tr>
+							<th>&nbsp;</th>
+							<td valign="top">
+								<input type="submit" value="" class="form-submit" />
+								<input type="reset" value="" class="form-reset"  />
+							</td>
+							<td></td>
+						</tr>
+						
+						
+						
+						
+						
+						
+						
+					</table>
+					<!-- end id-form  -->
+				
+					</td>
+					<td>
+				
+					
+				
+				</td>
+				</tr>
+				
+			</table>				<!--  end product-table................................... --> 
+	</form>
+
+
+{%endblock%}
+
+

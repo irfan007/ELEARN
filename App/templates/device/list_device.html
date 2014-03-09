@@ -1,0 +1,111 @@
+
+{%extends "dashboard.html"%}
+
+{%block navigation%}
+		<div class="nav">
+		<div class="table">
+		
+		<ul class="select"><li><a ><b>COURSE</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub">
+			<ul class="sub">
+			    <li ><a href="{{URL_PREFIX}}/chapter_and_topics/">CHAPTERS & TOPICS</a></li>
+				<li><a href="{{URL_PREFIX}}/qa/">QA</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="select"><li><a href="#nogo"><b>STUDENTS</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub ">
+			<ul class="sub">
+				<li><a href="{{URL_PREFIX}}/student/">STUDENTS</a></li>
+				<li><a href="{{URL_PREFIX}}/progress/">PROGRESS</a></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<ul class="current"><li><a ><b>DEVICES</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub show">
+			<ul class="sub">
+				<li class="sub_show"><a href="{{URL_PREFIX}}/device/">DEVICES</a></li>
+				
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
+		
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<!--  start nav -->
+		{%endblock%}
+				
+{%block content_header%}
+	<div id="page-heading">
+	    <table border="0" width="97%">
+	    	<tr>
+	    	<td><b style="font-size:25px;font-weight:bold;">&nbsp;&nbsp;&nbsp;Device List</b></td>
+	    	<td align="right">
+	    	<a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/device/add/"> ADD DEVICE </a>
+	    	&nbsp;&nbsp;&nbsp;
+	    	<a style="background:#527A00;color:white;border-radius:5px;padding:10px;font-weight:bold;" href="{{URL_PREFIX}}/device/upload/"> UPLOAD DEVICE </a>
+	    	</td>
+	    	</tr>
+	    </table>
+	</div>
+	{%endblock%}
+
+{% block main_content %}
+				<form id="mainform" action="">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<tr>
+				    <th class="table-header-repeat line-left"></th>
+				    <th class="table-header-repeat line-left minwidth-1"><a href="">Unique Id</a></th>
+				    <th class="table-header-repeat line-left minwidth-1"><a href="">Device Signature</a></th>
+				    <th class="table-header-repeat line-left minwidth-1"><a href="">Assigned To Student( Name/ ID)</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Status</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Edit</a></th>
+					
+				</tr>
+				
+				{%for device in devices%}
+				<tr>
+			        <td style="color:#527A00;text-align:center">{{forloop.counter}}</td>
+			        <td valign="">{{device.id}}</td>
+			        <td valign="">{{device.signature}}</td>
+					<td valign="">{{device.assigned_to.registration.fName}} / {{device.assigned_to.id}}</td>
+					<td>
+					{%if device.isActive%}
+					<a  title="active" class="icon-5 info-tooltip"></a>
+					{%else%}
+					<a  title="In-active" class="icon-2 info-tooltip"></a>
+					{%endif%}
+					</td>
+					<td align="right"><a  title="edit this device" class="icon-1 info-tooltip" href="{{URL_PREFIX}}/device/edit/{{device.id}}"></a></td>
+				</tr>
+				{%empty%}
+				   <td style="background:lightyellow;" colspan="6" align="center">NOT FOUND</td>
+				{%endfor%}
+				 
+				
+				
+				</table>
+				<!--  end product-table................................... --> 
+				</form>
+{%endblock%}
+
+
